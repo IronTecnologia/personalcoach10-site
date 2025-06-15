@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Coach 10 - Sistema de Gestão para Professores de Esportes</title>
+    <meta name="description" content="Sistema completo de gestão para professores de Padel, Tênis e Personal Training. Controle de alunos, agendamento, check-in automático e WhatsApp integrado.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://personalcoach10.com.br/">
+    <meta property="og:title" content="Personal Coach 10 - Sistema de Gestão para Professores">
+    <meta property="og:description" content="Sistema completo de gestão para professores de Padel, Tênis e Personal Training.">
+    <meta property="og:image" content="https://personalcoach10.com.br/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://personalcoach10.com.br/">
+    <meta property="twitter:title" content="Personal Coach 10 - Sistema de Gestão para Professores">
+    <meta property="twitter:description" content="Sistema completo de gestão para professores de Padel, Tênis e Personal Training.">
+    <meta property="twitter:image" content="https://personalcoach10.com.br/og-image.jpg">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.popular {
+            border: 3px solid #ff6b6b;
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-period {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-limit {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            color: #666;
+        }
+
+        .plan-features li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .pricing-card.popular {
+                transform: none;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #5a6fd8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">Personal Coach 10</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#funcionalidades">Funcionalidades</a></li>
+                <li><a href="#precos">Preços</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Gerencie Suas Aulas com Inteligência</h1>
+            <p>Sistema completo para professores de Padel, Tênis e Personal Training. Controle de alunos, agendamento automático, check-in com WhatsApp e muito mais!</p>
+            <a href="#" class="cta-button" onclick="openModal('signup')">Começar Teste Grátis</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="funcionalidades">
+        <div class="container">
+            <h2>Funcionalidades Completas</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Gestão de Alunos</h3>
+                    <p>Cadastre e organize todos seus alunos com informações completas, histórico de aulas e controle de planos contratados.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Agendamento Inteligente</h3>
+                    <p>Sistema de agendamento com prevenção de conflitos, lembretes automáticos e gestão de horários disponíveis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Check-in Automático</h3>
+                    <p>Check-in rápido com envio automático de confirmação via WhatsApp para o aluno. Controle total de presença.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Controle Financeiro</h3>
+                    <p>Gestão completa de pagamentos, planos vencidos, relatórios financeiros e controle de inadimplência.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>WhatsApp Integrado</h3>
+                    <p>Envio automático de mensagens, lembretes de aula, confirmações de agendamento e notificações importantes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Relatórios Detalhados</h3>
+                    <p>Dashboard completo com estatísticas, relatórios de frequência, performance dos alunos e análise financeira.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="precos">
+        <div class="container">
+            <h2>Planos que Crescem com Você</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="plan-price">R$ 29,90</div>
+                    <div class="plan-period">por mês</div>
+                    <div class="plan-limit">1 a 5 alunos</div>
+                    <ul class="plan-features">
+                        <li>Gestão básica de alunos</li>
+                        <li>Agendamento simples</li>
+                        <li>Check-in manual</li>
+                        <li>WhatsApp básico</li>
+                        <li>Suporte por email</li>
+                    </ul>
+                    <a href="#" class="cta-button" onclick="openModal('signup', 'starter')">Começar Agora</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-name">Basic</div>
+                    <div class="plan-price">R$ 49,90</div>
+                    <div class="plan-period">por mês</div>
+                    <div class="plan-limit">6 a 10 alunos</div>
+                    <ul class="plan-features">
+                        <li>Todas funcionalidades Starter</li>
+                        <li>Check-in automático</li>
+                        <li>Lembretes WhatsApp</li>
+                        <li>Relatórios básicos</li>
+                        <li>Backup automático</li>
+                    </ul>
+                    <a href="#" class="cta-button" onclick="openModal('signup', 'basic')">Começar Agora</a>
+                </div>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Mais Popular</div>
+                    <div class="plan-name">Professional</div>
+                    <div class="plan-price">R$ 69,90</div>
+                    <div class="plan-period">por mês</div>
+                    <div class="plan-limit">11 a 15 alunos</div>
+                    <ul class="plan-features">
+                        <li>Todas funcionalidades Basic</li>
+                        <li>Dashboard avançado</li>
+                        <li>Relatórios detalhados</li>
+                        <li>Controle financeiro</li>
+                        <li>Suporte prioritário</li>
+                    </ul>
+                    <a href="#" class="cta-button" onclick="openModal('signup', 'professional')">Começar Agora</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-name">Premium</div>
+                    <div class="plan-price">R$ 79,90</div>
+                    <div class="plan-period">por mês</div>
+                    <div class="plan-limit">16 a 25 alunos</div>
+                    <ul class="plan-features">
+                        <li>Todas funcionalidades Professional</li>
+                        <li>API personalizada</li>
+                        <li>Integrações avançadas</li>
+                        <li>Análise de performance</li>
+                        <li>Suporte telefônico</li>
+                    </ul>
+                    <a href="#" class="cta-button" onclick="openModal('signup', 'premium')">Começar Agora</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-name">Business</div>
+                    <div class="plan-price">R$ 89,90</div>
+                    <div class="plan-period">por mês</div>
+                    <div class="plan-limit">26 a 50 alunos</div>
+                    <ul class="plan-features">
+                        <li>Todas funcionalidades Premium</li>
+                        <li>Multi-usuário</li>
+                        <li>Relatórios personalizados</li>
+                        <li>Backup em tempo real</li>
+                        <li>Gerente de conta dedicado</li>
+                    </ul>
+                    <a href="#" class="cta-button" onclick="openModal('signup', 'business')">Começar Agora</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-name">Enterprise</div>
+                    <div class="plan-price">R$ 99,90</div>
+                    <div class="plan-period">por mês</div>
+                    <div class="plan-limit">50+ alunos</div>
+                    <ul class="plan-features">
+                        <li>Todas funcionalidades Business</li>
+                        <li>Usuários ilimitados</li>
+                        <li>Customizações avançadas</li>
+                        <li>SLA garantido</li>
+                        <li>Suporte 24/7</li>
+                    </ul>
+                    <a href="#" class="cta-button" onclick="openModal('signup', 'enterprise')">Começar Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contato">
+        <div class="container">
+            <h2>Pronto para Revolucionar sua Gestão?</h2>
+            <p>Junte-se a centenas de professores que já transformaram sua forma de trabalhar</p>
+            <a href="#" class="cta-button" onclick="openModal('signup')">Começar Teste Grátis de 7 Dias</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Personal Coach 10. Todos os direitos reservados.</p>
+            <p>Sistema de gestão para professores de Padel, Tênis e Personal Training</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Cadastro -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signup')">&times;</span>
+            <h2>Começar Teste Grátis</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">WhatsApp:</label>
+                    <input type="tel" id="telefone" name="telefone" required>
+                </div>
+                <div class="form-group">
+                    <label for="especialidade">Especialidade:</label>
+                    <select id="especialidade" name="especialidade" required>
+                        <option value="">Selecione...</option>
+                        <option value="padel">Padel</option>
+                        <option value="tenis">Tênis</option>
+                        <option value="personal">Personal Training</option>
+                        <option value="multiplo">Múltiplas modalidades</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="alunos">Quantos alunos você tem atualmente?</label>
+                    <select id="alunos" name="alunos" required>
+                        <option value="">Selecione...</option>
+                        <option value="1-5">1 a 5 alunos</option>
+                        <option value="6-10">6 a 10 alunos</option>
+                        <option value="11-15">11 a 15 alunos</option>
+                        <option value="16-25">16 a 25 alunos</option>
+                        <option value="26-50">26 a 50 alunos</option>
+                        <option value="50+">Mais de 50 alunos</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Começar Teste Grátis</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openModal(modalId, plan = '') {
+            document.getElementById(modalId + 'Modal').style.display = 'block';
+            if (plan) {
+                // Pre-select plan based on student count
+                const planMapping = {
+                    'starter': '1-5',
+                    'basic': '6-10', 
+                    'professional': '11-15',
+                    'premium': '16-25',
+                    'business': '26-50',
+                    'enterprise': '50+'
+                };
+                if (planMapping[plan]) {
+                    document.getElementById('alunos').value = planMapping[plan];
+                }
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId + 'Modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate API call
+            console.log('Dados do cadastro:', data);
+            
+            // Show success message
+            alert('Cadastro realizado com sucesso! Você receberá um email com as instruções de acesso em breve.');
+            
+            // Close modal
+            closeModal('signup');
+            
+            // Reset form
+            this.reset();
+            
+            // In a real implementation, you would send this data to your backend
+            // fetch('/api/signup', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(data)
+            // });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(102, 126, 234, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+
